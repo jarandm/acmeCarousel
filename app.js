@@ -1,5 +1,4 @@
 var acmeCarousel = (function(){
-	
 	var dom = {
 		addClass: function(classname, element) {
 			element.classList.add(classname);
