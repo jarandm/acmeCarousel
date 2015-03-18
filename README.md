@@ -48,32 +48,30 @@ HTML
 Definerer hva som er karusellen.
 
 #####interval (default: 3000): 
-Tid mellom hver slide
+Tid mellom hver slide.
 
 #####transitionTime (default: 1000)
-Tid på overgangen melom hver slide
+Tid på overgangen mellom hver slide.
 
 #####transition (default: "slide")
-Type overgang (slide / fade / slide-vertical)
+Type overgang (muligheter: slide, slide-vertical eller fade)
 
 #####autoRotation (default: true)
 Aktiverer/deaktiverer om karusellen skal gå automatisk videre til neste slide (true / false)
 
 #####wrapAround (default: true)
-Aktiverer/deaktiverer om wrapperen kan gå i loop (true / false)
+Aktiverer/deaktiverer om karusellen kan gå i loop (true / false)
 
 #####touch (default: true)
-Aktiverer/deaktiverer touch swipe (true / false)
+Aktiverer/deaktiverer touch-navigering (true / false)
 
 #####beforeTransition
-callback for når transisjonen starter
+Funksjon som kjærer når transisjonen starter
 
 #####afterTransition
-callback for når transisjonen er ferdig
+Funksjon som kjører når transisjonen er ferdig
 
 
-
-I tillegg har jeg gitt tilgang til å trigge nextSlide() og prevSlide() på karusellen (eks: slider1.nextSlide()).
-Så man kan legge inn egne eventlisteners hvis man ønsker det.
+I tillegg har jeg gitt tilgang til å trigge nextSlide() og prevSlide() på karusellen (eks: slider1.nextSlide()), slik at man kan legge inn egne eventlisteners ved behov.
 
 Tastaturnavigering skrues automatisk av hvis det er flere karuseller i ett dokument.
