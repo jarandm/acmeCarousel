@@ -11,13 +11,13 @@
 ##Bruk
 Enkel initalisering
 ```javascript
-var slider1 = new acmeCarousel.init('.carousel2');
+var slider1 = new acmeCarousel.init('.carousel1');
 ```
 
 Initalisering med konfigurasjon
 ```javascript
 var slider2 = new acmeCarousel.init({
-	selector: '.carousel1',
+	selector: '.carousel2',
 	interval: 2500,
 	transitionDuration: 600,
 	wrapAround: false,
@@ -75,7 +75,7 @@ Akitverer/deaktiverer tastaturnavigering. Deaktiveres automatisk av ved bruk av 
 Aktiverer/deaktiverer touch-navigering (true / false)
 
 #####beforeTransition
-Funksjon som kjærer når transisjonen starter
+Funksjon som kjører når transisjonen starter
 
 #####afterTransition
 Funksjon som kjører når transisjonen er ferdig
