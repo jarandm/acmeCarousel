@@ -62,11 +62,11 @@ Aktiverer/deaktiverer om karusellen skal gå automatisk videre til neste slide (
 #####wrapAround (default: true)
 Aktiverer/deaktiverer om karusellen kan gå i loop (true / false)
 
-#####touch (default: true)
-Aktiverer/deaktiverer touch-navigering (true / false)
-
-#####keyboard
+#####keyboardNav
 Akitverer/deaktiverer tastaturnavigering. Deaktiveres automatisk av ved bruk av flere karuseller i ett dokument.
+
+#####touchNav (default: true)
+Aktiverer/deaktiverer touch-navigering (true / false)
 
 #####beforeTransition
 Funksjon som kjærer når transisjonen starter
