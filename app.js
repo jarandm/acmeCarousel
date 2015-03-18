@@ -4,15 +4,12 @@ var acmeCarousel = (function(){
 		addClass: function(classname, element) {
 			element.classList.add(classname);
 		},
-
 		removeClass: function(classname, element) {
 			element.classList.remove(classname);
 		},
-
 		hasClass: function(className, element) {
 			return element.classList.contains(className);
 		},
-
 		style: function(style, value, element) {
 			element.style[style] = value;
 		}
@@ -259,7 +256,6 @@ var acmeCarousel = (function(){
 				}
 			}
 		};
-		
 		//Touch listeneres
 		if(config.touch){
 			carouselElement.addEventListener('touchstart', touchEvents.touchStart);
@@ -267,7 +263,6 @@ var acmeCarousel = (function(){
 			carouselElement.addEventListener('touchend', touchEvents.touchEnd);
 		}
 		
-
 		setup();
 		
 		return {
