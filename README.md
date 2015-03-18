@@ -19,6 +19,21 @@ var slider2 = new acmeCarousel.init({
 });
 ```
 
+```javascript
+<div class="carousel carousel1">
+	<div class="slides">
+		<div class="slide">12</div>
+		<div class="slide">34</div>
+		<div class="slide">56</div>
+	</div>
+		
+	<div class="controllers">
+		<div class="prev"></div>
+		<div class="next"></div>
+	</div>
+</div>
+```
+
 ##Konfigurasjon:
 
 ####selector (default: ".carousel"): 
