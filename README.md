@@ -45,7 +45,7 @@ HTML
 
 ##Konfigurasjon:
 
-####selector (default: ".carousel"): 
+#####selector (default: ".carousel"): 
 Definerer hva som er karusellen.
 
 #####interval (default: 3000): 
