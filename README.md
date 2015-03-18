@@ -19,8 +19,9 @@ var slider2 = new acmeCarousel.init({
 });
 ```
 
-```javascript
-<div class="carousel carousel1">
+HTML
+```html
+<div class="carousel">
 	<div class="slides">
 		<div class="slide">12</div>
 		<div class="slide">34</div>
