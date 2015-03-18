@@ -6,6 +6,7 @@
 - Touch-navigering
 - Autorotasjon
 - Callbacks
+- API
 
 ##Bruk
 Enkel initalisering
