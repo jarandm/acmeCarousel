@@ -39,7 +39,8 @@ var acmeCarousel = (function(){
 			transition: 'slide', // slide / fade / slide-vertical
 			autoRotation: true,
 			wrapAround: true,
-			touch: true,
+			keyboardNav: true,
+			touchNav: true,
 			beforeTransition: function() {},
 			afterTransition:  function() {}
 		};
@@ -205,7 +206,7 @@ var acmeCarousel = (function(){
 
 		
 		//Keyboard listeneres
-		if(carouselCounter.length == 1){
+		if(carouselCounter.length == 1 && keyboardNav){
 			document.addEventListener('keydown', function(event){
 			
 				switch(event.keyCode){
@@ -225,38 +226,35 @@ var acmeCarousel = (function(){
 			moved: false,
 
 			touchStart: function(event){
-				event.preventDefault();
-				touch.start.x = event.touches[0].pageX;
-				touch.start.y = event.touches[0].pageY;
+				touchEvents.start.x = event.touches[0].pageX;
+				touchEvents.start.y = event.touches[0].pageY;
 			},
 
 			touchMove:function(event) {
-				event.preventDefault();
 				if ( event.touches.length == 1 ) {
-					touch.current.x = event.touches[0].pageX;
-					touch.current.y = event.touches[0].pageY;
-					touch.moved = true;
+					touchEvents.current.x = event.touches[0].pageX;
+					touchEvents.current.y = event.touches[0].pageY;
+					touchEvents.moved = true;
 				}
 			},
 
 			touchEnd: function(event){
-				event.preventDefault();
 
-				var length = touch.start.x - touch.current.x;
+				var length = touchEvents.start.x - touchEvents.current.x;
 
-				if (length > 70  && touch.moved) {
+				if (length > 70  && touchEvents.moved) {
 					eventNext();
-					touch.moved = false;
+					touchEvents.moved = false;
 				}
-				else if(length < -70 && touch.moved){
+				else if(length < -70 && touchEvents.moved){
 					eventPrev();
-					touch.moved = false;
+					touchEvents.moved = false;
 				}
 			}
 		};
 		
 		//Touch listeneres
-		if(config.touch){
+		if(config.touchNav){
 			carouselElement.addEventListener('touchstart', touchEvents.touchStart);
 			carouselElement.addEventListener('touchmove', touchEvents.touchMove);
 			carouselElement.addEventListener('touchend', touchEvents.touchEnd);
