@@ -26,7 +26,6 @@ var acmeCarousel = (function(){
 					obj3[prop] = obj1[prop];
 				}
 			}
-
 			return obj3;
 		}
 	};
@@ -255,6 +254,7 @@ var acmeCarousel = (function(){
 				}
 			}
 		};
+		
 		//Touch listeneres
 		if(config.touch){
 			carouselElement.addEventListener('touchstart', touchEvents.touchStart);
