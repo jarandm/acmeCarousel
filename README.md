@@ -65,13 +65,20 @@ Aktiverer/deaktiverer om karusellen kan gå i loop (true / false)
 #####touch (default: true)
 Aktiverer/deaktiverer touch-navigering (true / false)
 
+#####keyboard
+Akitverer/deaktiverer tastaturnavigering. Deaktiveres automatisk av ved bruk av flere karuseller i ett dokument.
+
 #####beforeTransition
 Funksjon som kjærer når transisjonen starter
 
 #####afterTransition
 Funksjon som kjører når transisjonen er ferdig
 
+##API
+#####nextSlide
+Eks: slider1.nextSlide() tar deg til neste slide
 
-I tillegg har jeg gitt tilgang til å trigge nextSlide() og prevSlide() på karusellen (eks: slider1.nextSlide()), slik at man kan legge inn egne eventlisteners ved behov.
+#####prevSlide
+Eks: slider.prevSlide() tar deg til forrige slide
 
-Tastaturnavigering skrues automatisk av hvis det er flere karuseller i ett dokument.
+
