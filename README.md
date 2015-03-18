@@ -1,5 +1,12 @@
 # acmeCarousel
 
+- Flere karuseller på samme side
+- Overgang: Horisontal, vertikal eller fade.
+- Tastaturnavigering (ved bruk av en karusell)
+- Touch-navigering
+- Autorotasjon
+- Callbacks
+
 ##Bruk
 Enkel initalisering
 ```javascript
@@ -66,7 +73,7 @@ callback for når transisjonen er ferdig
 
 
 
-I tillegg har jeg gitt tilgang til å trigge nextSlide() og prevSlide() på slider1 (slider1.nextSlide()).
+I tillegg har jeg gitt tilgang til å trigge nextSlide() og prevSlide() på karusellen (eks: slider1.nextSlide()).
 Så man kan legge inn egne eventlisteners hvis man ønsker det.
 
-Keyboard navigering skrues automatisk av hvis det er flere karuseller i ett dokument.
+Tastaturnavigering skrues automatisk av hvis det er flere karuseller i ett dokument.
