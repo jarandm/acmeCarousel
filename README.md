@@ -43,7 +43,7 @@ HTML
 </div>
 ```
 
-##Konfigurasjon:
+##Konfigurasjon
 
 #####selector (default: ".carousel"): 
 Definerer hva som er karusellen.
