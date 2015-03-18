@@ -1,5 +1,24 @@
 # acmeCarousel
 
+##Bruk
+Enkel initalisering
+```javascript
+var slider1 = new acmeCarousel.init('.carousel2');
+```
+
+Initalisering med konfigurasjon
+```javascript
+var slider2 = new acmeCarousel.init({
+	selector: '.carousel1',
+	interval: 2500,
+	transitionDuration: 600,
+	wrapAround: false,
+	afterTransition: function(slide){
+		console.log('Content (callback): ' + slide.innerHTML);
+	}
+});
+```
+
 ##Konfigurasjon:
 
 ####selector (default: ".carousel"): 
@@ -29,23 +48,7 @@ callback for når transisjonen starter
 #####afterTransition
 callback for når transisjonen er ferdig
 
-##Eksempel på initalisering av en slider:
 
-```javascript
-var slider1 = new acmeCarousel.init('.carousel2');
-```
-
-```javascript
-var slider2 = new acmeCarousel.init({
-	selector: '.carousel1',
-	interval: 2500,
-	transitionDuration: 600,
-	wrapAround: false,
-	afterTransition: function(slide){
-		console.log('Content (callback): ' + slide.innerHTML);
-	}
-});
-```
 
 I tillegg har jeg gitt tilgang til å trigge nextSlide() og prevSlide() på slider1 (slider1.nextSlide()).
 Så man kan legge inn egne eventlisteners hvis man ønsker det.
