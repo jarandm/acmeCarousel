@@ -27,6 +27,11 @@ var slider2 = new acmeCarousel.init({
 });
 ```
 
+API
+```javascript
+slider1.nextSlide();
+```
+
 HTML
 ```html
 <div class="carousel">
@@ -76,10 +81,10 @@ Funksjon som kjærer når transisjonen starter
 Funksjon som kjører når transisjonen er ferdig
 
 ##API
-#####nextSlide
-Eks: slider1.nextSlide() tar deg til neste slide
+#####nextSlide()
+Tar karusellen til neste slide
 
-#####prevSlide
-Eks: slider.prevSlide() tar deg til forrige slide
+#####prevSlide()
+Tar karusellen til forrige slide
 
 
