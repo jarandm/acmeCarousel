@@ -47,14 +47,14 @@ var acmeCarousel = (function(){
 		};
 		
 		var config,
-			carouselElement,
-			carouselChildren,
-			carouselCounter,
-			allSlides = [],
-			activeSlide,
-			nextSlide,
-			prevSlide,
-			interval;
+		carouselElement,
+		carouselChildren,
+		carouselCounter,
+		allSlides = [],
+		activeSlide,
+		nextSlide,
+		prevSlide,
+		interval;
 			
 		var setup = function(){
 			
