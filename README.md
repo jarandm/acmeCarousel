@@ -2,7 +2,7 @@
 
 - Flere karuseller på samme side
 - Animasjon: Horisontal, vertikal eller fade (enkelt å lage egne i css)
-- Tastaturnavigering (ved bruk av en karusell)
+- Tastaturnavigering (ved bruk av èn karusell)
 - Touch-navigering
 - Autorotasjon
 - Callbacks
