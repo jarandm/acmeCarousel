@@ -1,5 +1,4 @@
-var Slider = (function(){
-	
+var acmeCarousel = (function(){
 	
 	var dom = {
 		addClass: function(classname, element) {
@@ -47,7 +46,6 @@ var Slider = (function(){
 			afterTransition:  function() {}
 		};
 		
-		
 		var config,
 			carouselElement,
 			carouselChildren,
@@ -57,8 +55,7 @@ var Slider = (function(){
 			nextSlide,
 			prevSlide,
 			interval;
-		
-
+			
 		var setup = function(){
 			
 			//Overwrite default config if user defined
@@ -77,40 +74,39 @@ var Slider = (function(){
 		
 			//Loop slides and add to Array
 			for(var ii = 0, length = carouselChildren.length; ii < length; ii++){
-				dom.style("transitionDuration", config.transitionDuration + "ms", carouselChildren[ii]);
+				dom.style("webkitAnimationDuration", config.transitionDuration + "ms", carouselChildren[ii]);
 				dom.addClass('effect-' + config.transition, carouselChildren[ii]);
 				allSlides.push(carouselChildren[ii]);
 			}
 
-			//Set default slides status and add default classes
+			//Set default slides status
 			activeSlide = allSlides[0];
 			nextSlide = allSlides[1];
+
 			dom.addClass('active', activeSlide);
-			dom.addClass('next-slide', nextSlide);
+			if(nextSlide){ dom.addClass('next-slide', nextSlide); }
 			if(config.wrapAround === true){
 				prevSlide = allSlides[allSlides.length-1];
-				dom.addClass('prev-slide', prevSlide);
+				if(prevSlide){ dom.addClass('prev-slide', prevSlide); }
 			}
-			
-			//Start autorotation if true
+
+			//Start autorotation if set
 			if(config.autoRotation === true){
-				
 				interval = setInterval(function(){
-					goTo(1)
+					goTo('next')
 				}, config.interval);
 			}
 			
 			eventListeners();
 		};
 		
-		var goTo = function(number){
+		//direction: "prev" or "next" 
+		var goTo = function(direction){
+			if(allSlides.length <= 1){ return false; }
 			
-			//Set index of current and next slide
 			var oldSlide = allSlides.indexOf(activeSlide);
-			var goToSlide = oldSlide + number;
-
-			//If negtive number go backwards, if positiv number go forwards
-			if(number < 0){
+			
+			if(direction == 'prev'){
 				if(oldSlide == 0 && config.wrapAround === false){ return false; }
 				
 				dom.removeClass('right', carouselElement);
@@ -118,63 +114,80 @@ var Slider = (function(){
 			}
 			else{
 				if((allSlides.length - 1) <= oldSlide && config.wrapAround === false){ return false; }
-			
+				
+				//Add class to define animation direction
 				dom.removeClass('left', carouselElement);
 				dom.addClass('right', carouselElement);
-			}				
+			}
 			
-			//remove current classes
+			//Remove current classes
 			if(prevSlide){ dom.removeClass('prev-slide', prevSlide); }
 			if(nextSlide){ dom.removeClass('next-slide', nextSlide); }
 			dom.removeClass('active', activeSlide);
 			
-			//Update slider position
-			prevSlide = allSlides[goToSlide - 1];
-			activeSlide = allSlides[goToSlide];
-			nextSlide = allSlides[goToSlide + 1];
 			
-			if(!prevSlide){ prevSlide = allSlides[allSlides.length-1]; }
-			if(!nextSlide){ nextSlide = allSlides[0]; }
-			
-			if(goToSlide == allSlides.length){
-				activeSlide = allSlides[0];
-				nextSlide = allSlides[1]; 
+			if(direction == 'next'){
+				//Update slide status
+				prevSlide = activeSlide;
+				activeSlide = allSlides[oldSlide+1];
+				nextSlide = allSlides[oldSlide+2];
+	
+				if(!activeSlide && !nextSlide){
+					activeSlide = allSlides[0];
+					nextSlide = allSlides[1];
+				}
+				else if(!nextSlide){
+					nextSlide = allSlides[0];
+				}
+			}
+			else{
+				//Update slide status
+				nextSlide = activeSlide;
+				activeSlide = allSlides[oldSlide-1];
+				prevSlide = allSlides[oldSlide-2];
+					
+				if(!activeSlide && !prevSlide){
+					activeSlide = allSlides[allSlides.length-1];
+					prevSlide = allSlides[allSlides.length-2];
+				}
+				
+				else if(!prevSlide){
+					prevSlide = allSlides[allSlides.length-1];
+				}
 			}
 
-			if(oldSlide == 0 && number < 0){
-				activeSlide = allSlides[allSlides.length-1];
-				prevSlide = allSlides[allSlides.length-2];
-			}
-			
-			//Add new classes
-			if(!prevSlide){ dom.addClass('prev-slide', prevSlide); }
-			if(!nextSlide){ dom.addClass('next-slide', nextSlide); }
-			dom.addClass('active', activeSlide);
-			
 			//Add class to wrapper while animating
 			dom.addClass('animating', carouselElement);
 			
-			//Run callback
-			callback();
+			//Add classes
+			if(prevSlide){ dom.addClass('prev-slide', prevSlide); }
+			if(nextSlide){ dom.addClass('next-slide', nextSlide); }
+			dom.addClass('active', activeSlide);
 
+			callback();			
 		};
 
 		var callback = function(){
 			config.beforeTransition(activeSlide);
 
 			var transitionEnd = function(){
+				//remove animating class when animation is finished
 				dom.removeClass('animating', carouselElement);
-				activeSlide.removeEventListener('transitionend', transitionEnd);
+				
+				//Remove eventlistener
+				activeSlide.removeEventListener('webkitAnimationEnd', transitionEnd);
+				
+				//Run callback
 				config.afterTransition(activeSlide);
 			};
 
-			activeSlide.addEventListener('transitionend', transitionEnd);
+			activeSlide.addEventListener('webkitAnimationEnd', transitionEnd);
 		};
 
 		//Next slide on eventlistener
 		var eventNext = function(){
 			if(!dom.hasClass('animating', carouselElement)){
-				goTo(1);
+				goTo('next');
 				clearInterval(interval);
 			}
 		};
@@ -182,7 +195,7 @@ var Slider = (function(){
 		//Previous slide on eventlistener
 		var eventPrev = function(){
 			if(!dom.hasClass('animating', carouselElement)){
-				goTo(-1);
+				goTo('prev');
 				clearInterval(interval);
 			}
 		};
@@ -223,11 +236,12 @@ var Slider = (function(){
 		var eventListeners = function(){
 			//Click listeneres
 			var prevButton = carouselElement.querySelector('.prev');
-			if(prevButton){ prevButton.addEventListener('click', eventPrev); }
+			if(prevButton){ prevButton.addEventListener('click', eventPrev.bind(this)); }
 	
 			var nextButton = carouselElement.querySelector('.next');
-			if(nextButton){ nextButton.addEventListener('click', eventNext); }
+			if(nextButton){ nextButton.addEventListener('click', eventNext.bind(this)); }
 	
+			
 			//Keyboard listeneres
 			if(carouselCounter.length == 1 && config.keyboardNav){
 				document.addEventListener('keydown', function(event){
@@ -252,10 +266,14 @@ var Slider = (function(){
 		};
 		
 		setup();
-
+		
 		return {
-			nextSlide: eventNext,
-			prevSlide: eventPrev,
+			nextSlide: function(){
+				goTo('next');
+			},
+			prevSlide: function(){
+				goTo('prev');
+			}
 		}
 	};
 
