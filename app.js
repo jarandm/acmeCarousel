@@ -1,4 +1,4 @@
-var acmeCarousel = (function(){
+var Slider = (function(){
 	
 	
 	var dom = {
@@ -53,11 +53,12 @@ var acmeCarousel = (function(){
 			carouselChildren,
 			carouselCounter,
 			allSlides = [],
-			currentSlide,
+			activeSlide,
 			nextSlide,
 			prevSlide,
 			interval;
-			
+		
+
 		var setup = function(){
 			
 			//Overwrite default config if user defined
@@ -69,6 +70,7 @@ var acmeCarousel = (function(){
 				config = object.merge(defaultConfig, userConfig);
 			}
 			
+			//Set DOM elements
 			carouselElement = document.querySelector(config.selector);
 			carouselChildren = carouselElement.querySelector('.slides').children;
 			carouselCounter = document.querySelectorAll('.carousel');
@@ -80,140 +82,107 @@ var acmeCarousel = (function(){
 				allSlides.push(carouselChildren[ii]);
 			}
 
-			//Set default slides status
-			currentSlide = allSlides[0];
+			//Set default slides status and add default classes
+			activeSlide = allSlides[0];
 			nextSlide = allSlides[1];
-
-			dom.addClass('active', currentSlide);
+			dom.addClass('active', activeSlide);
 			dom.addClass('next-slide', nextSlide);
-			
 			if(config.wrapAround === true){
 				prevSlide = allSlides[allSlides.length-1];
 				dom.addClass('prev-slide', prevSlide);
 			}
-
-			//Start autorotation if set
+			
+			//Start autorotation if true
 			if(config.autoRotation === true){
-				interval = setInterval(goToNextSlide, config.interval);
+				
+				interval = setInterval(function(){
+					goTo(1)
+				}, config.interval);
 			}
 			
 			eventListeners();
 		};
-
-		//Next slide
-		var goToNextSlide = function(){
-
+		
+		var goTo = function(number){
 			
-			if(!nextSlide){
-				return false;
-			}
+			//Set index of current and next slide
+			var oldSlide = allSlides.indexOf(activeSlide);
+			var goToSlide = oldSlide + number;
+
+			//If negtive number go backwards, if positiv number go forwards
+			if(number < 0){
+				if(oldSlide == 0 && config.wrapAround === false){ return false; }
 				
-			//Add class to define animation direction
-			dom.removeClass('left', carouselElement);
-			dom.addClass('right', carouselElement);
-
-			//Remove current classes
-			if(prevSlide){ dom.removeClass('prev-slide', prevSlide); }
-			dom.removeClass('active', currentSlide);
-			dom.removeClass('next-slide', nextSlide);
-
-			var index = allSlides.indexOf(currentSlide);
-			
-			//Update slide status
-			prevSlide = currentSlide;
-			currentSlide = allSlides[index+1];
-			nextSlide = allSlides[index+2];
-
-			if(config.wrapAround === true){
-				if(!currentSlide && !nextSlide){
-					currentSlide = allSlides[0];
-					nextSlide = allSlides[1];
-				}
-				else if(!nextSlide){
-					nextSlide = allSlides[0];
-				}
-			}
-
-			//Add class to wrapper while animating
-			if((config.wrapAround === false && index !== (allSlides.length-1)) || config.wrapAround === true){
-				dom.addClass('animating', carouselElement);
-			}
-			
-			//Add classes
-			if(prevSlide){ dom.addClass('prev-slide', prevSlide); }
-			if(nextSlide){ dom.addClass('next-slide', nextSlide); }
-			dom.addClass('active', currentSlide);
-
-			callback();
-		};
-
-		//Previous slide
-		var goToPrevSlide = function(){
-			if(prevSlide){
-				//Add class to define animation direction
 				dom.removeClass('right', carouselElement);
 				dom.addClass('left', carouselElement);
-				
-				//Remove current classes
-				if(nextSlide){ dom.removeClass('next-slide', nextSlide); }
-				dom.removeClass('active', currentSlide);
-				dom.removeClass('prev-slide', prevSlide);
-
-				var index = allSlides.indexOf(currentSlide);
-				
-				//Update slide status
-				nextSlide = currentSlide;
-				currentSlide = allSlides[index-1];
-				prevSlide = allSlides[index-2];
-
-				if(config.wrapAround === true){
-					if(!currentSlide && !prevSlide){
-						currentSlide = allSlides[allSlides.length-1];
-						prevSlide = allSlides[allSlides.length-2];
-					}
-					else if(!prevSlide){
-						prevSlide = allSlides[allSlides.length-1];
-					}
-				}
-
-
-				if((config.wrapAround === false && index !== 0) || config.wrapAround === true){
-					dom.addClass('animating', carouselElement);
-				}
-
-				if(nextSlide){ dom.addClass('next-slide', nextSlide); }
-				if(prevSlide){ dom.addClass('prev-slide', prevSlide); }
-				dom.addClass('active', currentSlide);
-
-				callback();
 			}
+			else{
+				if((allSlides.length - 1) <= oldSlide && config.wrapAround === false){ return false; }
+			
+				dom.removeClass('left', carouselElement);
+				dom.addClass('right', carouselElement);
+			}				
+			
+			//remove current classes
+			if(prevSlide){ dom.removeClass('prev-slide', prevSlide); }
+			if(nextSlide){ dom.removeClass('next-slide', nextSlide); }
+			dom.removeClass('active', activeSlide);
+			
+			//Update slider position
+			prevSlide = allSlides[goToSlide - 1];
+			activeSlide = allSlides[goToSlide];
+			nextSlide = allSlides[goToSlide + 1];
+			
+			if(!prevSlide){ prevSlide = allSlides[allSlides.length-1]; }
+			if(!nextSlide){ nextSlide = allSlides[0]; }
+			
+			if(goToSlide == allSlides.length){
+				activeSlide = allSlides[0];
+				nextSlide = allSlides[1]; 
+			}
+
+			if(oldSlide == 0 && number < 0){
+				activeSlide = allSlides[allSlides.length-1];
+				prevSlide = allSlides[allSlides.length-2];
+			}
+			
+			//Add new classes
+			dom.addClass('prev-slide', prevSlide); 
+			dom.addClass('next-slide', nextSlide);
+			dom.addClass('active', activeSlide);
+			
+			//Add class to wrapper while animating
+			dom.addClass('animating', carouselElement);
+			
+			//Run callback
+			callback();
+
 		};
 
 		var callback = function(){
-			config.beforeTransition(currentSlide);
+			config.beforeTransition(activeSlide);
 
 			var transitionEnd = function(){
 				dom.removeClass('animating', carouselElement);
-				currentSlide.removeEventListener('transitionend', transitionEnd);
-				config.afterTransition(currentSlide);
+				activeSlide.removeEventListener('transitionend', transitionEnd);
+				config.afterTransition(activeSlide);
 			};
 
-			currentSlide.addEventListener('transitionend', transitionEnd);
+			activeSlide.addEventListener('transitionend', transitionEnd);
 		};
 
 		//Next slide on eventlistener
 		var eventNext = function(){
 			if(!dom.hasClass('animating', carouselElement)){
-				goToNextSlide();
+				goTo(1);
 				clearInterval(interval);
-				console.log(this);
 			}
 		};
 
 		//Previous slide on eventlistener
 		var eventPrev = function(){
 			if(!dom.hasClass('animating', carouselElement)){
-				goToPrevSlide();
+				goTo(-1);
 				clearInterval(interval);
 			}
 		};
@@ -254,14 +223,13 @@ var acmeCarousel = (function(){
 		var eventListeners = function(){
 			//Click listeneres
 			var prevButton = carouselElement.querySelector('.prev');
-			if(prevButton){ prevButton.addEventListener('click', eventPrev.bind(this)); }
+			if(prevButton){ prevButton.addEventListener('click', eventPrev); }
 	
 			var nextButton = carouselElement.querySelector('.next');
-			if(nextButton){ nextButton.addEventListener('click', eventNext.bind(this)); }
+			if(nextButton){ nextButton.addEventListener('click', eventNext); }
 	
-			
 			//Keyboard listeneres
-			if(carouselCounter.length == 1 && keyboardNav){
+			if(carouselCounter.length == 1 && config.keyboardNav){
 				document.addEventListener('keydown', function(event){
 				
 					switch(event.keyCode){
@@ -284,15 +252,15 @@ var acmeCarousel = (function(){
 		};
 		
 		setup();
-		
+
 		return {
-			nextSlide: goToNextSlide,
-			prevSlide: goToPrevSlide
+			nextSlide: eventNext,
+			prevSlide: eventPrev,
 		}
 	};
 
 	return {
-		init: Carousel,
+		init: Carousel
 	};
 
 })();
