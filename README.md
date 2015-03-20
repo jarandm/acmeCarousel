@@ -1,7 +1,7 @@
 # acmeCarousel
 
 - Flere karuseller på samme side
-- Overgang: Horisontal, vertikal eller fade.
+- Animasjon: Horisontal, vertikal eller fade (enkelt å lage egne i css)
 - Tastaturnavigering (ved bruk av en karusell)
 - Touch-navigering
 - Autorotasjon
