@@ -147,8 +147,8 @@ var Slider = (function(){
 			}
 			
 			//Add new classes
-			dom.addClass('prev-slide', prevSlide); 
-			dom.addClass('next-slide', nextSlide);
+			if(!prevSlide){ dom.addClass('prev-slide', prevSlide); }
+			if(!nextSlide){ dom.addClass('next-slide', nextSlide); }
 			dom.addClass('active', activeSlide);
 			
 			//Add class to wrapper while animating
