@@ -1,8 +1,8 @@
 .carousel{
 	overflow: hidden;
-	height: 500px;
+	height: 300px;
 	position: relative;
-	max-width: 1100px;
+	max-width: 900px;
 	width: 100%;
 	margin: 0 auto;
 	margin-bottom: 50px;
@@ -21,42 +21,8 @@
 	
 }
 
-.slide.effect-slide{
-	-webkit-transition: -webkit-transform;
-}
 
-
-.slide.effect-fade{
-	-webkit-transition: opacity;
-}
-
-.slide.effect-slide-vertical{
-	-webkit-transition: -webkit-transform;
-}
-
-
-.slide.effect-slide-vertical.prev-slide{
-	-webkit-transform: translateY(200px);
-}
-
-.slide.effect-slide-vertical.next-slide{
-	-webkit-transform: translateY(-200px);
-}
-
-.slide.effect-fade.next-slide,
-.slide.effect-fade.prev-slide{
-	opacity: 0;
-}
-
-.slide.effect-slide.next-slide{
-	-webkit-transform: translateX(100%);
-}
-
-.slide.effect-slide.prev-slide{
-	-webkit-transform: translateX(-100%);
-}
-
-
+/* DEFAULT */
 .active{
 	opacity: 1;
 	z-index: 1;
@@ -70,10 +36,113 @@
 	opacity: 1;
 }
 
+
+
+/* SLIDE */
+.right .slide.effect-slide.prev-slide{
+	-webkit-animation: slide-out-to-left;
+}
+
+.right .slide.effect-slide.active{
+	-webkit-animation: slide-in-from-right;
+}
+
+.left .slide.effect-slide.next-slide{
+	-webkit-animation: slide-out-to-right;
+}
+
+.left .slide.effect-slide.active{
+	-webkit-animation: slide-in-from-left;
+}
+
+
+@-webkit-keyframes slide-out-to-left{
+	100%{ -webkit-transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slide-out-to-right{
+	100%{ -webkit-transform: translateX(100%); }
+}
+
+@-webkit-keyframes slide-in-from-right{
+	0%{ -webkit-transform: translateX(100%); }
+	100%{ -webkit-transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in-from-left{
+	0%{ -webkit-transform: translateX(-100%); }
+	100%{ -webkit-transform: translateX(0%); }
+}
+
+
+
+/* FADE */
+.slide.effect-fade.prev-slide,
+.slide.effect-fade.next-slide{
+	-webkit-animation: fadeOut forwards;
+}
+
+.slide.effect-fade.active{
+	-webkit-animation: fadeIn forwards;
+	opacity: 0;
+}
+
+
+@-webkit-keyframes fadeIn{
+	100%{
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeOut{
+	100%{
+		opacity: 0;
+	}
+}
+
+
+
+/* SLIDE-VERTICAL */
+.right .slide.effect-slide-vertical.prev-slide{
+	-webkit-animation: slide-out-to-bottom;
+}
+
+.left .slide.effect-slide-vertical.next-slide{
+	-webkit-animation: slide-out-to-top;
+}
+
+.right .slide.effect-slide-vertical.active{
+	-webkit-animation: slide-in-from-top forwards;
+}
+
+.left .slide.effect-slide-vertical.active{
+	-webkit-animation: slide-in-from-bottom forwards;
+}
+
+@-webkit-keyframes slide-out-to-bottom{
+	100%{ -webkit-transform: translateY(100%); }
+}
+
+@-webkit-keyframes slide-out-to-top{
+	100%{ -webkit-transform: translateY(-100%); }
+}
+
+@-webkit-keyframes slide-in-from-top{
+	0%{ -webkit-transform: translateY(-100%); }
+	100%{ -webkit-transform: translateY(0%); }
+}
+
+@-webkit-keyframes slide-in-from-bottom{
+	0%{ -webkit-transform: translateY(100%); }
+	100%{ -webkit-transform: translateY(0%);}
+}
+
+
+
+
+/* BACKGROUND COLORS */
 .slide:nth-child(1){
-	/*background-image: url(images/image1.jpg);*/
 	background-size: cover;
-	background-color: red;
+	background-image: url('images/acme.png');
 }
 
 .slide:nth-child(2){
@@ -83,6 +152,13 @@
 .slide:nth-child(3){
 	background-color: green;
 }
+
+.slide:nth-child(4){
+	background-color: yellow;
+}
+
+
+/* BUTTONS */
 
 .prev,
 .next{
@@ -122,7 +198,6 @@
 .next{
 	right: 2%;
 }
-
 
 
 
