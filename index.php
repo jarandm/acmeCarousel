@@ -19,6 +19,7 @@
 			<div class="slide">12</div>
 			<div class="slide">34</div>
 			<div class="slide">56</div>
+			<div class="slide">56</div>
 		</div>
 		
 		<div class="controllers">
@@ -26,12 +27,13 @@
 			<div class="next"></div>
 		</div>
 	</div>
+	<div onclick="slider1.nextSlide();">Go to next slide</div>
+	
 	
 	<div class="carousel carousel2">
 		<div class="slides">
 			<div class="slide">12</div>
 			<div class="slide">34</div>
-			<div class="slide">56</div>
 		</div>
 		
 		<div class="controllers">
@@ -45,14 +47,18 @@
 		var slider1 = new acmeCarousel.init({
 			selector: '.carousel1',
 			interval: 2500,
-			transitionDuration: 600,
-			wrapAround: false,
+			transitionDuration: 1000,
+			wrapAround: true,
+			transition: 'slide-vertical',  //slide, fade, slide-vertical
+			autoRotation: false,
 			afterTransition: function(slide){
 				console.log('Content (callback): ' + slide.innerHTML);
 			}
-			
 		});
+		
 		var slider2 = new acmeCarousel.init('.carousel2');
 	</script>
+	
+	
 </body>
 </html>
