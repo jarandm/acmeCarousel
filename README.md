@@ -1,3 +1,5 @@
+Demo: http://jfm.no/carousel/
+
 # acmeCarousel
 
 - Flere karuseller på samme side
