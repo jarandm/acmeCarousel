@@ -1,3 +1,8 @@
+body{
+	background: #f6f6f6;	
+	margin: 20px;
+}
+
 .carousel{
 	overflow: hidden;
 	height: 300px;
@@ -5,7 +10,9 @@
 	max-width: 900px;
 	width: 100%;
 	margin: 0 auto;
+	border-radius: 3px;
 	margin-bottom: 50px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 
@@ -19,6 +26,14 @@
 	opacity: 0;
 	-webkit-transform: translateX(0%);
 	
+}
+.slide-text{
+	display: inline-block;
+	vertical-align: middle;
+	color: #fff;
+	font-size: 3em;
+	font-family: helvetica;
+	text-transform: uppercase;
 }
 
 
@@ -140,21 +155,27 @@
 
 
 /* BACKGROUND COLORS */
-.slide:nth-child(1){
+.carousel1 .slide:nth-child(1){
+	background-color: #230028;
+}
+
+.carousel1 .slide:nth-child(1) img{
+	height: 300px;
+}
+
+.carousel1 .slide:nth-child(2),
+.carousel2 .slide:nth-child(1),
+.carousel3 .slide:nth-child(2){
+	background-size: cover;
+	background-image: url('images/acme2.jpg');
+	background-position-y: center;
+}
+
+.carousel1 .slide:nth-child(3),
+.carousel2 .slide:nth-child(2),
+.carousel3 .slide:nth-child(1){
 	background-size: cover;
 	background-image: url('images/acme.png');
-}
-
-.slide:nth-child(2){
-	background-color: blue;
-}
-
-.slide:nth-child(3){
-	background-color: green;
-}
-
-.slide:nth-child(4){
-	background-color: yellow;
 }
 
 
@@ -200,6 +221,10 @@
 }
 
 
+h1{
+	text-align: center;
+	font-family: "helvetica"
+}
 
 
 
