@@ -58,7 +58,7 @@ Definerer hva som er karusellen.
 #####interval (default: 3000): 
 Tid mellom hver slide.
 
-#####transitionTime (default: 1000)
+#####transitionDuration (default: 1000)
 Tid på overgangen mellom hver slide.
 
 #####transition (default: "slide")
