@@ -2,7 +2,7 @@ Demo: http://jfm.no/carousel/
 #acmeCarousel
 
 - Flere karuseller på samme side
-- Animasjon: Horisontal, vertikal eller fade (enkelt å lage egne i css)
+- Animasjon: Horisontal, vertikal eller fade (enkelt å lage egne animasjoner i css)
 - Tastaturnavigering (ved bruk av èn karusell)
 - Touch-navigering
 - Autorotasjon
