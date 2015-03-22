@@ -1,5 +1,5 @@
 Demo: http://jfm.no/carousel/
-# acmeCarousel
+#acmeCarousel
 
 - Flere karuseller på samme side
 - Animasjon: Horisontal, vertikal eller fade (enkelt å lage egne i css)
