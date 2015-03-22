@@ -19,10 +19,11 @@ Initalisering med konfigurasjon
 var slider2 = new acmeCarousel.init({
 	selector: '.carousel2',
 	interval: 2500,
-	transitionDuration: 600,
+	transitionDuration: 500,
 	wrapAround: false,
-	afterTransition: function(slide){
-		console.log('Content (callback): ' + slide.innerHTML);
+	autoRotation: false,
+	afterTransition: function(index){
+		console.log('Position (callback): ' + index);
 	}
 });
 ```
