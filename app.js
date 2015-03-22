@@ -47,14 +47,14 @@ var acmeCarousel = (function(){
 		};
 		
 		var config,
-		carouselElement,
-		carouselChildren,
-		carouselCounter,
-		allSlides = [],
-		activeSlide,
-		nextSlide,
-		prevSlide,
-		interval;
+			carouselElement,
+			carouselChildren,
+			carouselCounter,
+			allSlides = [],
+			activeSlide,
+			nextSlide,
+			prevSlide,
+			interval;
 			
 		var setup = function(){
 			
@@ -168,7 +168,7 @@ var acmeCarousel = (function(){
 		};
 
 		var callback = function(){
-			config.beforeTransition(activeSlide);
+			config.beforeTransition(allSlides.indexOf(activeSlide));
 
 			var transitionEnd = function(){
 				//remove animating class when animation is finished
@@ -178,7 +178,7 @@ var acmeCarousel = (function(){
 				activeSlide.removeEventListener('webkitAnimationEnd', transitionEnd);
 				
 				//Run callback
-				config.afterTransition(activeSlide);
+				config.afterTransition(allSlides.indexOf(activeSlide));
 			};
 
 			activeSlide.addEventListener('webkitAnimationEnd', transitionEnd);
@@ -236,10 +236,10 @@ var acmeCarousel = (function(){
 		var eventListeners = function(){
 			//Click listeneres
 			var prevButton = carouselElement.querySelector('.prev');
-			if(prevButton){ prevButton.addEventListener('click', eventPrev.bind(this)); }
+			if(prevButton){ prevButton.addEventListener('click', eventPrev); }
 	
 			var nextButton = carouselElement.querySelector('.next');
-			if(nextButton){ nextButton.addEventListener('click', eventNext.bind(this)); }
+			if(nextButton){ nextButton.addEventListener('click', eventNext); }
 	
 			
 			//Keyboard listeneres
@@ -268,12 +268,8 @@ var acmeCarousel = (function(){
 		setup();
 		
 		return {
-			nextSlide: function(){
-				goTo('next');
-			},
-			prevSlide: function(){
-				goTo('prev');
-			}
+			nextSlide: eventNext,
+			prevSlide: eventPrev
 		}
 	};
 
