@@ -43,13 +43,14 @@ body{
 	z-index: 1;
 }
 
-.left .next-slide{
+.animating.left .next-slide{
 	opacity: 1;
 }
 
-.right .prev-slide{
+.animating.right .prev-slide{
 	opacity: 1;
 }
+
 
 
 
